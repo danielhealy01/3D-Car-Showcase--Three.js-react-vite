@@ -1,19 +1,41 @@
 import { Canvas } from "@react-three/fiber"
 import { Stage, PresentationControls } from "@react-three/drei"
 import '../src/App.css'
-import { useState} from 'react'
+import { useState, useEffect} from 'react'
 import Model from "./components/Model"
 
 function App() {
-  const [car, setCar] = useState("lambo.glb");
+  const [car, setCar] = useState("lambo.glb")
+  const [loading, setLoading] = useState(true)
   console.log(car)
 
   const handleClick = (e) => {
     setCar(e.target.id)
   }
 
+  const handleLoading = () => {
+    setLoading(false)
+     setTimeout(() => {
+       document.querySelector(".spinner").style.opacity = 0;
+     }, "1300");
+     setTimeout(() => {
+       document.querySelector(".loadingSplash").style.opacity = 0;
+     }, "2000");
+     setTimeout(() => {
+       document.querySelector(".loadingSplash").style.display = "none";
+     }, "3800");
+  }
+
+  useEffect(() => {
+    window.addEventListener("load", handleLoading);
+    return () => window.removeEventListener("load", handleLoading);
+  }, []);
+
   return (
     <>
+      <div className="loadingSplash">
+        <div className="spinner"></div>
+      </div>
       <nav className="nav-container">
         <div
           id="lambo.glb"
@@ -33,10 +55,13 @@ function App() {
         >
           Ferrari
         </div>
-        <div id="bmw.glb" className={
-          car === "bmw.glb" ? "nav-btn--active" : "nav-btn--inactive"
-        }
-          onClick={handleClick}>
+        <div
+          id="bmw.glb"
+          className={
+            car === "bmw.glb" ? "nav-btn--active" : "nav-btn--inactive"
+          }
+          onClick={handleClick}
+        >
           BMW
         </div>
       </nav>

@@ -8,6 +8,7 @@
   font-size: 16px;
   font-weight: 400;
   font-family: "inter";
+  background-color: black;
 }
 
 html {
@@ -55,3 +56,29 @@ html {
   background-color: rgb(17, 52, 0);
 }
 
+.loadingSplash {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: black;
+  z-index: 1000000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  scroll-snap-type: none;
+  transition: all 2s ease-out;
+  opacity: 1;
+}
+
+.spinner {
+  width: 30vw;
+  height: 30vw;
+  background-image: url('./assets/loadingSpinner2.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 10vh auto 0vh auto;
+  background-position-y: 2vw;
+  transition: all 1s ease-out;
+  opacity: 1;
+}
