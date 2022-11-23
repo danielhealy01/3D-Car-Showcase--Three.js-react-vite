@@ -1,27 +1,56 @@
 import { Canvas } from "@react-three/fiber"
 import { Stage, PresentationControls } from "@react-three/drei"
 import '../src/App.css'
-import { useState } from 'react'
+import { useState} from 'react'
 import Model from "./components/Model"
 
 function App() {
-  const [car, setCar] = useState("/lambo2.glb"); 
+  const [car, setCar] = useState("/lambo.glb");
+  console.log(car)
+
+  const handleClick = (e) => {
+    setCar(e.target.id)
+    console.log(car)
+  }
 
   return (
-    <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }} style={{
-      position: "absolute",
-      width: "100vw",
-      height: "100vh",
-      touchAction: "none",
-     }} >
-      <color attach="background" args={["#101010"]} />
-      <PresentationControls speed={1.5} global zoom={.5} polar={[-0.1, Math.PI / 4]}>
-        <Stage environment={null}>
-          <Model scale={0.01} car={car} />
-        </Stage>
-      </PresentationControls>
-    </Canvas>
-  )
+    <>
+      <nav className="nav-container">
+        <div id="lambo.glb" className="nav-btn--active" onClick={handleClick}>
+          Lamborghini
+        </div>
+        <div id="lambo2.glb" className="nav-btn--inactive" onClick={handleClick}>
+          Ferrari
+        </div>
+        <div id="bmw.glb" className="nav-btn--inactive" onClick={handleClick}>
+          BMW
+        </div>
+      </nav>
+      <Canvas
+        dpr={[1, 2]}
+        shadows
+        camera={{ fov: 45 }}
+        style={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          touchAction: "none",
+        }}
+      >
+        <color attach="background" args={["#101010"]} />
+        <PresentationControls
+          speed={1.5}
+          global
+          zoom={0.5}
+          polar={[-0.1, Math.PI / 4]}
+        >
+          <Stage environment={null}>
+            <Model scale={0.01} car={car} />
+          </Stage>
+        </PresentationControls>
+      </Canvas>
+    </>
+  );
 }
 
 export default App
@@ -30,6 +59,8 @@ export default App
 /* 
 
 Three buttons to set car state
+  onClick={handleClick}
+
 
 Loading splash based on ternery if page loaded.
 
