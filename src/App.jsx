@@ -5,24 +5,38 @@ import { useState} from 'react'
 import Model from "./components/Model"
 
 function App() {
-  const [car, setCar] = useState("/lambo.glb");
+  const [car, setCar] = useState("lambo.glb");
   console.log(car)
 
   const handleClick = (e) => {
     setCar(e.target.id)
-    console.log(car)
   }
 
   return (
     <>
       <nav className="nav-container">
-        <div id="lambo.glb" className="nav-btn--active" onClick={handleClick}>
+        <div
+          id="lambo.glb"
+          className={
+            car === "lambo.glb" ? "nav-btn--active" : "nav-btn--inactive"
+          }
+          onClick={handleClick}
+        >
           Lamborghini
         </div>
-        <div id="lambo2.glb" className="nav-btn--inactive" onClick={handleClick}>
+        <div
+          id="lambo2.glb"
+          className={
+            car === "lambo2.glb" ? "nav-btn--active" : "nav-btn--inactive"
+          }
+          onClick={handleClick}
+        >
           Ferrari
         </div>
-        <div id="bmw.glb" className="nav-btn--inactive" onClick={handleClick}>
+        <div id="bmw.glb" className={
+          car === "bmw.glb" ? "nav-btn--active" : "nav-btn--inactive"
+        }
+          onClick={handleClick}>
           BMW
         </div>
       </nav>
@@ -42,7 +56,7 @@ function App() {
           speed={1.5}
           global
           zoom={0.5}
-          polar={[-0.1, Math.PI / 4]}
+          polar={[-0.1, Math.PI / 2]}
         >
           <Stage environment={null}>
             <Model scale={0.01} car={car} />
